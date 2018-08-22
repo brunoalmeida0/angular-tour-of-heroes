@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
-import { HEROES } from '../mock-heroes';
+import { HeroService } from '../hero.service';
 
 // @Component é um decorador que especifica metadados Angular no componente
 @Component({
@@ -10,14 +10,18 @@ import { HEROES } from '../mock-heroes';
 })
 export class HeroesComponent implements OnInit {
 
-  heroes = HEROES;
-  selectedHero: Hero;
+  constructor(private heroService: HeroService) { }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
+  heroes: Hero[];
+
+  getHeroes(): void {
+    this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes); // atribui ao heroes o array de heroes obtido pelo serviço
+    // subscribe é equivalente ao .then - assim que a requisição assincrona for retonrnada, ela irá
+    // para o parâmetro
   }
 
   ngOnInit() {
+    this.getHeroes();
   }
 
 }
