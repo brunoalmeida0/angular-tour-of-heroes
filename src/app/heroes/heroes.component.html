@@ -1,0 +1,15 @@
+<!-- Criando seletor de elemento para ser usado no app.component.html-->
+<h2>My Heroes</h2>
+
+<ul class="heroes">
+    <li *ngFor="let hero of heroes" (click)='onSelect(hero)' [class.selected]='hero === selectedHero'>
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </li>
+</ul>
+
+<app-hero-detail [hero]="selectedHero"></app-hero-detail>
+
+<!-- ngFor é um laço for dentro do html, neste caso ele pegará cada elemento do array heroes contido no
+heroes.component.ts e adicionará a um li -->
+
+<!-- A sintaxe com [] significa ligação de dados unidirecional, no caso o valor atribuído será enviado -->

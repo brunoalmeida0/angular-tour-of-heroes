@@ -1,0 +1,15 @@
+<div *ngIf="hero">
+    <h2>{{ hero.name | uppercase }} Details</h2>
+    <span>id: </span>{{hero.id}}
+
+    <div>
+        <label>
+            Name:
+            <input type="text" [(ngModel)]="hero.name" placeholder="name">
+        </label>
+    </div>
+</div>
+
+<!-- A sintaxe [{ngModel}] representa uma ligação de dados bidirecional,
+     para que ela funcione é necessário importar o FormsModule no app.module.ts
+    neste caso, as informações digitadas irão para o hero.name  -->
