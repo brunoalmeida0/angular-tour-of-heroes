@@ -12,7 +12,7 @@ import { Hero } from '../hero';
 })
 
 export class HeroDetailComponent implements OnInit {
-  @Input() hero: Hero;
+  @Input() hero: Hero; // @input para obter o dado através do input html
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +27,15 @@ export class HeroDetailComponent implements OnInit {
   getHero(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.heroService.getHero(id).subscribe(hero => this.hero = hero);
+  }
+
+  goBack(): void {
+    this.location.back();
+  }
+
+  save(): void {
+    this.heroService.updateHero(this.hero)
+      .subscribe(() => this.goBack());
   }
 }
 // o + converte string em número

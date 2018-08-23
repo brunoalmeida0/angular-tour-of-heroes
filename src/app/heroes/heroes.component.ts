@@ -10,7 +10,9 @@ import { HeroService } from '../hero.service';
 })
 export class HeroesComponent implements OnInit {
 
-  constructor(private heroService: HeroService) { }
+  constructor(
+    private heroService: HeroService
+  ) { }
 
   heroes: Hero[];
 
@@ -18,6 +20,20 @@ export class HeroesComponent implements OnInit {
     this.heroService.getHeroes().subscribe(heroes => this.heroes = heroes); // atribui ao heroes o array de heroes obtido pelo serviço
     // subscribe é equivalente ao .then - assim que a requisição assincrona for retonrnada, ela irá
     // para o parâmetro
+  }
+
+  add(name: String) {
+    name = name.trim();
+    if (!name) { return; }
+    this.heroService.addHero({ name } as Hero)
+      .subscribe(hero => {
+        this.heroes.push(hero);
+      });
+  }
+
+  delete(hero: Hero): void {
+    this.heroes = this.heroes.filter(h => h !== hero);
+    this.heroService.deleteHero(hero).subscribe();
   }
 
   ngOnInit() {
